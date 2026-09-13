@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Fitness - Register</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Smart Fitness</h1>
+    <h2>Create Account</h2>
+
+    <form id="registerForm">
+
+        <input type="text" id="name" placeholder="Full Name" required>
+
+        <input type="email" id="email" placeholder="Email" required>
+
+        <input type="password" id="password" placeholder="Password" required>
+
+        <input type="number" id="age" placeholder="Age" required>
+
+        <input type="number" id="height" placeholder="Height (cm)" required>
+
+        <input type="number" id="weight" placeholder="Weight (kg)" required>
+
+        <select id="activityLevel" required>
+            <option value="">Select Activity Level</option>
+            <option value="Sedentary">Sedentary</option>
+            <option value="Light">Light</option>
+            <option value="Moderate">Moderate</option>
+            <option value="Active">Active</option>
+            <option value="Very Active">Very Active</option>
+        </select>
+
+        <button type="submit">Register</button>
+
+    </form>
+
+    <p id="message"></p>
+
+    <p>
+        Already have an account?
+        <a href="login.html">Login</a>
+    </p>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
