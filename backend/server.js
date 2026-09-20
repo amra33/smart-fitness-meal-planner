@@ -7,12 +7,15 @@ const cors = require("cors");
 require("dotenv").config({ path: __dirname + "/.env" });
 
 const authRoutes = require("./routes/auth");
-
+const foodlogRoutes = require("./routes/foodlog");
+const nutritionRoutes = require("./routes/nutrition");
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoutes);
+app.use("/api/foodlogs", foodlogRoutes);
+app.use("/api/nutrition", nutritionRoutes);
 
 const PORT = 5000;
 
