@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log Food - Smart Fitness & Meal Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Log Your Food</h1>
+
+        <!-- Search section -->
+        <div class="card">
+            <h2>Search a food</h2>
+            <input type="text" id="searchInput" placeholder="e.g. banana, rice, chicken">
+            <button id="searchBtn">Search</button>
+            <div id="searchResults"></div>
+        </div>
+
+        <!-- Manual entry section, hidden until needed -->
+        <div class="card" id="manualEntry" style="display: none;">
+            <h2>Enter manually</h2>
+            <input type="text" id="manualFoodName" placeholder="Food name (e.g. Chicken Biryani)">
+            <input type="number" id="manualCalories" placeholder="Calories">
+            <select id="manualMealType">
+                <option value="breakfast">Breakfast</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+                <option value="snack">Snack</option>
+            </select>
+            <button id="manualSaveBtn">Save</button>
+        </div>
+
+        <button id="showManualBtn">Can't find your food? Enter manually</button>
+
+        <!-- Today's log -->
+        <div class="card">
+            <h2>Today's Log</h2>
+            <div id="logList"></div>
+        </div>
+    </div>
+
+    <script src="foodlog.js"></script>
+</body>
+</html>
