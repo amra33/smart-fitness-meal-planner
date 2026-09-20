@@ -6,40 +6,57 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Log Your Food</h1>
 
-        <!-- Search section -->
-        <div class="card">
-            <h2>Search a food</h2>
-            <input type="text" id="searchInput" placeholder="e.g. banana, rice, chicken">
-            <button id="searchBtn">Search</button>
-            <div id="searchResults"></div>
+<div class="app-shell">
+    <aside class="sidebar">
+        <div class="sidebar-avatar">
+            <div class="avatar-circle" id="avatarInitial">S</div>
+            <p class="sidebar-hello">Hello, <span id="sidebarName">there</span></p>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="profile.html" class="sidebar-link">👤 Profile</a>
+            <a href="foodlog.html" class="sidebar-link active">🍽️ Log Food</a>
+            <a href="progress.html" class="sidebar-link">📊 Progress</a>
+        </nav>
+        <button class="sidebar-logout" onclick="logout()">🚪 Logout</button>
+    </aside>
+
+    <main class="app-main">
+        <div class="main-content">
+            <h1>Log Your Food</h1>
+
+            <div class="card">
+                <h2>Search a food</h2>
+                <input type="text" id="searchInput" placeholder="e.g. banana, rice, chicken">
+                <button id="searchBtn">Search</button>
+                <div id="searchResults"></div>
+            </div>
+
+            <button id="showManualBtn" style="width:100%; margin-top:12px;">Can't find your food? Enter manually</button>
+
+            <div class="card" id="manualEntry" style="display: none;">
+                <h2>Enter manually</h2>
+                <input type="text" id="manualFoodName" placeholder="Food name (e.g. Chicken Biryani)">
+                <input type="number" id="manualCalories" placeholder="Calories">
+                <select id="manualMealType">
+                    <option value="breakfast">Breakfast</option>
+                    <option value="lunch">Lunch</option>
+                    <option value="dinner">Dinner</option>
+                    <option value="snack">Snack</option>
+                </select>
+                <button id="manualSaveBtn">Save</button>
+            </div>
         </div>
 
-        <!-- Manual entry section, hidden until needed -->
-        <div class="card" id="manualEntry" style="display: none;">
-            <h2>Enter manually</h2>
-            <input type="text" id="manualFoodName" placeholder="Food name (e.g. Chicken Biryani)">
-            <input type="number" id="manualCalories" placeholder="Calories">
-            <select id="manualMealType">
-                <option value="breakfast">Breakfast</option>
-                <option value="lunch">Lunch</option>
-                <option value="dinner">Dinner</option>
-                <option value="snack">Snack</option>
-            </select>
-            <button id="manualSaveBtn">Save</button>
+        <div class="side-panel">
+            <div class="card">
+                <h2>Today's Log</h2>
+                <div id="logList"></div>
+            </div>
         </div>
+    </main>
+</div>
 
-        <button id="showManualBtn">Can't find your food? Enter manually</button>
-
-        <!-- Today's log -->
-        <div class="card">
-            <h2>Today's Log</h2>
-            <div id="logList"></div>
-        </div>
-    </div>
-
-    <script src="foodlog.js"></script>
+<script src="foodlog.js"></script>
 </body>
 </html>

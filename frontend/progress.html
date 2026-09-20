@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Progress - Smart Fitness & Meal Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-shell">
+    <aside class="sidebar">
+        <div class="sidebar-avatar">
+            <div class="avatar-circle" id="avatarInitial">S</div>
+            <p class="sidebar-hello">Hello, <span id="sidebarName">there</span></p>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="profile.html" class="sidebar-link">👤 Profile</a>
+            <a href="foodlog.html" class="sidebar-link">🍽️ Log Food</a>
+            <a href="progress.html" class="sidebar-link active">📊 Progress</a>
+        </nav>
+        <button class="sidebar-logout" onclick="logout()">🚪 Logout</button>
+    </aside>
+
+    <main class="app-main">
+        <div class="main-content">
+            <h1>Your Progress</h1>
+            <div class="card">
+                <h2>Last 7 Days</h2>
+                <div id="weekChart"></div>
+            </div>
+        </div>
+
+        <div class="side-panel">
+            <div class="calorie-ring" id="calorieRing">
+                <div class="calorie-ring-inner">
+                    <span class="kcal" id="ringCalories">0</span>
+                    <span class="label">kcal today</span>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Today's Breakdown</h2>
+                <div id="mealBreakdown"></div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="progress.js"></script>
+</body>
+</html>

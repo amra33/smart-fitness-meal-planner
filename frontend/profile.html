@@ -1,35 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Smart Fitness - Profile</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-<button onclick="logout()">Logout</button>
 
-<div class="container">
+<div class="app-shell">
+    <aside class="sidebar">
+        <div class="sidebar-avatar">
+            <div class="avatar-circle" id="avatarInitial">S</div>
+            <p class="sidebar-hello">Hello, <span id="sidebarName">there</span></p>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="profile.html" class="sidebar-link active">👤 Profile</a>
+            <a href="foodlog.html" class="sidebar-link">🍽️ Log Food</a>
+            <a href="progress.html" class="sidebar-link">📊 Progress</a>
+        </nav>
+        <button class="sidebar-logout" onclick="logout()">🚪 Logout</button>
+    </aside>
 
-    <h1>Smart Fitness</h1>
-    <h2>My Profile</h2>
+    <main class="app-main">
+        <div class="main-content">
+            <h1>Smart Fitness</h1>
+            <h2>My Profile</h2>
+            <p id="message"></p>
 
-    <p><strong>Name:</strong> <span id="name"></span></p>
-
-    <p><strong>Email:</strong> <span id="email"></span></p>
-
-    <p><strong>Age:</strong> <span id="age"></span></p>
-
-    <p><strong>Height:</strong> <span id="height"></span> cm</p>
-
-    <p><strong>Weight:</strong> <span id="weight"></span> kg</p>
-
-    <p><strong>Activity Level:</strong> <span id="activityLevel"></span></p>
-
-    <p id="message"></p>
-
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="label">Name</div>
+                    <div class="value" id="name"></div>
+                </div>
+                <div class="info-card">
+                    <div class="label">Email</div>
+                    <div class="value" id="email"></div>
+                </div>
+                <div class="info-card">
+                    <div class="label">Age</div>
+                    <div class="value" id="age"></div>
+                </div>
+                <div class="info-card">
+                    <div class="label">Height</div>
+                    <div class="value" id="height"></div>
+                </div>
+                <div class="info-card">
+                    <div class="label">Weight</div>
+                    <div class="value" id="weight"></div>
+                </div>
+                <div class="info-card">
+                    <div class="label">Activity Level</div>
+                    <div class="value" id="activityLevel"></div>
+                </div>
+            </div>
+        </div>
+    </main>
 </div>
 
 <script src="script.js"></script>
-
 </body>
 </html>

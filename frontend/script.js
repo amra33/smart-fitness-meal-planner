@@ -31,7 +31,7 @@ if (registerForm) {
             if (response.ok) {
                 localStorage.setItem("token", data.token);
 
-                document.getElementById("message").textContent =
+                document.getElementById("registerMessage").textContent =
                     "Registration successful!";
 
                 setTimeout(() => {
@@ -39,12 +39,12 @@ if (registerForm) {
                 }, 1000);
 
             } else {
-                document.getElementById("message").textContent =
+                document.getElementById("registerMessage").textContent =
                     data.message;
             }
 
         } catch (error) {
-            document.getElementById("message").textContent =
+            document.getElementById("registerMessage").textContent =
                 "Cannot connect to server.";
             console.error(error);
         }
@@ -74,6 +74,17 @@ if (profileMessage) {
                 document.getElementById("height").textContent = data.user.height;
                 document.getElementById("weight").textContent = data.user.weight;
                 document.getElementById("activityLevel").textContent = data.user.activityLevel;
+
+                // Sidebar personalization (new) — guarded so this never
+                // breaks on pages that don't have these elements
+                const sidebarNameEl = document.getElementById("sidebarName");
+                if (sidebarNameEl) sidebarNameEl.textContent = data.user.name;
+
+                const avatarEl = document.getElementById("avatarInitial");
+                if (avatarEl && data.user.name) {
+                    avatarEl.textContent = data.user.name.charAt(0).toUpperCase();
+                }
+
             } else {
                 profileMessage.textContent = data.message;
             }

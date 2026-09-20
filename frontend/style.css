@@ -1,170 +1,228 @@
-/* =========================
-   SMART FITNESS - MAIN STYLE
-   ========================= */
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+:root {
+    --bg: #FFF8E7;
+    --card-bg: #FFFFFF;
+    --sidebar-bg: #FDF1CE;
+    --sidebar-active: #F6C445;
+    --primary: #3DAA79;
+    --primary-dark: #2C8C61;
+    --accent: #F0A93C;
+    --text: #2B2515;
+    --muted: #9C9270;
+    --border: #F1E4BE;
 }
+
+* { box-sizing: border-box; }
 
 body {
-    font-family: Arial, sans-serif;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #dff7f0, #f5fbf9, #d9f3ff);
-    color: #263238;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Main card */
-.container {
-    width: 420px;
-    max-width: 90%;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 35px;
-    border-radius: 22px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-    text-align: center;
-}
-
-/* Headings */
-h1 {
-    color: #176b5b;
-    font-size: 32px;
-    margin-bottom: 8px;
-}
-
-h2 {
-    color: #333;
-    font-size: 22px;
-    margin-bottom: 25px;
-}
-
-/* Form */
-form {
-    width: 100%;
-}
-
-label {
-    display: block;
-    text-align: left;
-    font-size: 14px;
-    font-weight: bold;
-    margin: 14px 0 6px;
-    color: #555;
-}
-
-input,
-select {
-    width: 100%;
-    padding: 13px 14px;
-    border: 1px solid #d6dede;
-    border-radius: 10px;
-    outline: none;
-    font-size: 15px;
-    background: #f9ffff;
-    transition: 0.3s;
-}
-
-input:focus,
-select:focus {
-    border-color: #35a88d;
-    box-shadow: 0 0 0 3px rgba(53, 168, 141, 0.15);
-}
-
-/* Buttons */
-button {
-    width: 100%;
-    padding: 13px;
-    margin-top: 20px;
-    border: none;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #35a88d, #21806d);
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 7px 18px rgba(33, 128, 109, 0.25);
-}
-
-/* Links */
-a {
-    color: #21806d;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* Messages */
-#message,
-#loginMessage {
-    margin-top: 15px;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-/* =========================
-   PROFILE PAGE
-   ========================= */
-
-.profile-card {
-    text-align: center;
-}
-
-.profile-card p {
-    background: #f2faf7;
-    padding: 12px;
-    margin: 9px 0;
-    border-radius: 10px;
-    text-align: left;
-}
-
-.profile-card strong {
-    color: #176b5b;
-}
-
-/* Small Logout Button */
-body > button[onclick="logout()"] {
-    position: fixed;
-    top: 20px;
-    right: 25px;
-    width: auto;
-    padding: 9px 18px;
+    font-family: "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
     margin: 0;
-    border-radius: 20px;
-    font-size: 13px;
-    background: #176b5b;
-    z-index: 1000;
+    padding: 20px;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
 }
 
-body > button[onclick="logout()"]:hover {
-    background: #d9534f;
-    transform: none;
-    box-shadow: 0 5px 15px rgba(217, 83, 79, 0.25);
+/* Soft decorative background blobs — pure CSS, no image files to break or slow-load */
+body::before, body::after {
+    content: "";
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -1;
+    opacity: 0.45;
+    pointer-events: none;
+}
+body::before {
+    width: 440px; height: 440px; top: -140px; left: -160px;
+    background: radial-gradient(circle, #B7E8C9 0%, transparent 70%);
+}
+body::after {
+    width: 400px; height: 400px; bottom: -160px; right: -140px;
+    background: radial-gradient(circle, #FBE0A0 0%, transparent 70%);
 }
 
-/* Mobile */
+h1 { color: var(--primary-dark); margin-bottom: 4px; }
+h2 { color: var(--text); font-size: 18px; margin-top: 0; }
+
+input, select {
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg);
+    font-size: 14px;
+}
+
+button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+}
+button:hover { background: var(--primary-dark); }
+
+a { color: var(--primary-dark); }
+
+/* ===== Simple centered card — login.html and register.html only ===== */
+.container {
+    max-width: 480px;
+    margin: 40px auto;
+    background: var(--card-bg);
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 10px 30px rgba(43, 37, 21, 0.1);
+}
+
+/* ===== Dashboard shell with sidebar — profile.html, foodlog.html, progress.html ===== */
+.app-shell {
+    max-width: 1200px;
+    margin: 40px auto;
+    display: flex;
+    background: var(--card-bg);
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(43, 37, 21, 0.12);
+    min-height: 620px;
+}
+
+.sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    background: var(--sidebar-bg);
+    padding: 28px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-avatar { text-align: center; margin-bottom: 28px; }
+.avatar-circle {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 700;
+    margin: 0 auto 10px;
+    border: 3px solid var(--sidebar-active);
+}
+.sidebar-hello { font-weight: 700; font-size: 14px; margin: 0; }
+
+.sidebar-nav { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.sidebar-link {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    border-radius: 14px;
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 14px;
+}
+.sidebar-link.active { background: var(--sidebar-active); color: #3B2F06; }
+.sidebar-link:hover:not(.active) { background: rgba(255,255,255,0.6); }
+
+.sidebar-logout {
+    margin-top: 16px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    width: 100%;
+    border-radius: 14px;
+    padding: 10px;
+}
+.sidebar-logout:hover { background: white; color: var(--text); }
+
+.app-main {
+    flex: 1;
+    padding: 36px;
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+}
+.main-content { flex: 1; min-width: 0; }
+.side-panel { flex: 0 0 280px; }
+
+@media (max-width: 900px) {
+    .app-shell { flex-direction: column; border-radius: 20px; margin: 16px auto; }
+    .sidebar { width: 100%; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 16px; }
+    .sidebar-avatar { margin-bottom: 0; }
+    .sidebar-nav { flex-direction: row; flex-wrap: wrap; }
+    .sidebar-logout { margin-top: 0; width: auto; }
+    .app-main { flex-direction: column; padding: 24px; }
+    .side-panel { flex-basis: auto; width: 100%; }
+}
+
+/* Profile info cards */
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 16px;
+}
 @media (max-width: 500px) {
-    .container {
-        padding: 25px 20px;
-    }
-
-    h1 {
-        font-size: 28px;
-    }
-
-    body > button[onclick="logout()"] {
-        top: 12px;
-        right: 12px;
-    }
+    .info-grid { grid-template-columns: 1fr; }
 }
+.info-card {
+    background: var(--bg);
+    border-radius: 16px;
+    padding: 16px 18px;
+}
+.info-card .label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--muted); margin-bottom: 4px;
+}
+.info-card .value { font-size: 18px; font-weight: 700; color: var(--text); }
+
+/* Generic content cards (search box, log list, etc.) */
+.card {
+    background: var(--bg);
+    border-radius: 18px;
+    padding: 16px;
+    margin-top: 12px;
+}
+
+/* Food search results & log entries */
+.result-item, .log-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    border-radius: 14px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+.result-item button, .log-item button { padding: 6px 14px; font-size: 12px; }
+.log-item button { background: var(--accent); }
+.log-item button:hover { background: #D4901F; }
+
+/* Progress bars */
+.bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.bar-label { width: 40px; font-size: 12px; color: var(--muted); }
+.bar-track { flex: 1; background: var(--border); border-radius: 999px; height: 14px; overflow: hidden; }
+.bar-fill { background: var(--primary); height: 100%; border-radius: 999px; }
+.bar-value { width: 65px; text-align: right; font-size: 12px; color: var(--muted); }
+.meal-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px; }
+
+/* Circular calorie ring */
+.calorie-ring {
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex; align-items: center; justify-content: center;
+    background: conic-gradient(var(--accent) calc(var(--pct, 0) * 1%), var(--border) 0);
+}
+.calorie-ring-inner {
+    width: 108px; height: 108px;
+    border-radius: 50%;
+    background: white;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.calorie-ring-inner .kcal { font-size: 20px; font-weight: 700; color: var(--primary-dark); }
+.calorie-ring-inner .label { font-size: 11px; color: var(--muted); }
