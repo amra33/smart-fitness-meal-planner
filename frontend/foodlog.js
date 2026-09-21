@@ -25,6 +25,13 @@ document.getElementById("searchBtn").addEventListener("click", async function ()
     }
 });
 
+function macroSubtext(item) {
+    const p = item.protein ?? "?";
+    const c = item.carbs ?? "?";
+    const f = item.fat ?? "?";
+    return `P: ${p}g &middot; C: ${c}g &middot; F: ${f}g`;
+}
+
 function renderSearchResults(results) {
     const container = document.getElementById("searchResults");
 
@@ -35,7 +42,10 @@ function renderSearchResults(results) {
 
     container.innerHTML = results.map((food, index) => `
         <div class="result-item">
-            <span>${food.foodName} — ${food.calories ?? "?"} kcal</span>
+            <span class="item-text">
+                <span>${food.foodName} — ${food.calories ?? "?"} kcal</span>
+                <span class="macro-sub">${macroSubtext(food)}</span>
+            </span>
             <button class="logBtn" data-index="${index}">Log this</button>
         </div>
     `).join("");
@@ -98,13 +108,24 @@ async function saveFoodLog(logData) {
     }
 }
 
+function dateKey(dateString) {
+    return new Date(dateString).toISOString().split("T")[0];
+}
+
 async function loadFoodLogs() {
     try {
         const response = await fetch(`${API_BASE}/api/foodlogs`, {
             headers: { "Authorization": "Bearer " + token }
         });
         const data = await response.json();
-        renderLogList(data.logs || []);
+        const logs = data.logs || [];
+
+        // "Today's Log" should mean today — filter before rendering,
+        // same approach progress.js already uses for its own totals.
+        const today = new Date().toISOString().split("T")[0];
+        const todaysLogs = logs.filter(log => dateKey(log.date) === today);
+
+        renderLogList(todaysLogs);
     } catch (error) {
         console.error(error);
     }
@@ -124,7 +145,10 @@ function renderLogList(logs) {
         <p><strong>Total: ${totalCalories} kcal</strong></p>
         ${logs.map(log => `
             <div class="log-item">
-                <span>${log.foodName} — ${log.calories} kcal</span>
+                <span class="item-text">
+                    <span>${log.foodName} — ${log.calories} kcal</span>
+                    <span class="macro-sub">P: ${log.protein ?? 0}g &middot; C: ${log.carbs ?? 0}g &middot; F: ${log.fat ?? 0}g</span>
+                </span>
                 <button class="deleteBtn" data-id="${log._id}">Delete</button>
             </div>
         `).join("")}

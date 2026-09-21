@@ -24,6 +24,38 @@
     <main class="app-main">
         <div class="main-content">
             <h1>Your Progress</h1>
+
+            <div class="date-picker-row">
+                <label for="dateSelect">Viewing</label>
+                <input type="date" id="dateSelect">
+            </div>
+
+            <div class="hero-card">
+                <div class="hero-kcal">
+                    <span id="ringCalories">0</span> kcal <small id="heroDateLabel">today</small>
+                </div>
+                <div class="macro-rings">
+                    <div class="macro-ring-wrap">
+                        <div class="macro-ring" id="proteinRing" style="--ring-color: var(--macro-protein);">
+                            <div class="macro-ring-inner"><span class="macro-ring-value">0%</span></div>
+                        </div>
+                        <div class="macro-ring-label">Protein</div>
+                    </div>
+                    <div class="macro-ring-wrap">
+                        <div class="macro-ring" id="carbsRing" style="--ring-color: var(--macro-carbs);">
+                            <div class="macro-ring-inner"><span class="macro-ring-value">0%</span></div>
+                        </div>
+                        <div class="macro-ring-label">Carbs</div>
+                    </div>
+                    <div class="macro-ring-wrap">
+                        <div class="macro-ring" id="fatRing" style="--ring-color: var(--macro-fat);">
+                            <div class="macro-ring-inner"><span class="macro-ring-value">0%</span></div>
+                        </div>
+                        <div class="macro-ring-label">Fat</div>
+                    </div>
+                </div>
+            </div>
+
             <div class="card">
                 <h2>Last 7 Days</h2>
                 <div id="weekChart"></div>
@@ -31,14 +63,8 @@
         </div>
 
         <div class="side-panel">
-            <div class="calorie-ring" id="calorieRing">
-                <div class="calorie-ring-inner">
-                    <span class="kcal" id="ringCalories">0</span>
-                    <span class="label">kcal today</span>
-                </div>
-            </div>
             <div class="card">
-                <h2>Today's Breakdown</h2>
+                <h2 id="breakdownHeading">Today's Breakdown</h2>
                 <div id="mealBreakdown"></div>
             </div>
         </div>

@@ -1,14 +1,18 @@
 :root {
-    --bg: #FFF8E7;
+    --bg: #F4F5F4;
     --card-bg: #FFFFFF;
-    --sidebar-bg: #FDF1CE;
-    --sidebar-active: #F6C445;
-    --primary: #3DAA79;
-    --primary-dark: #2C8C61;
-    --accent: #F0A93C;
-    --text: #2B2515;
-    --muted: #9C9270;
-    --border: #F1E4BE;
+    --dark: #16181C;
+    --lime: #CFFF57;
+    --lime-dark: #A8E62E;
+    --text: #16181C;
+    --muted: #8A8F98;
+    --border: #E7E9EC;
+    --stat-blue: #4C8DFF;
+    --stat-orange: #FF9F43;
+    --stat-red: #FF6B6B;
+    --macro-protein: #CFFF57;
+    --macro-carbs: #FFB443;
+    --macro-fat: #FF6B6B;
 }
 
 * { box-sizing: border-box; }
@@ -20,30 +24,9 @@ body {
     margin: 0;
     padding: 20px;
     min-height: 100vh;
-    position: relative;
-    overflow-x: hidden;
 }
 
-/* Soft decorative background blobs — pure CSS, no image files to break or slow-load */
-body::before, body::after {
-    content: "";
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(80px);
-    z-index: -1;
-    opacity: 0.45;
-    pointer-events: none;
-}
-body::before {
-    width: 440px; height: 440px; top: -140px; left: -160px;
-    background: radial-gradient(circle, #B7E8C9 0%, transparent 70%);
-}
-body::after {
-    width: 400px; height: 400px; bottom: -160px; right: -140px;
-    background: radial-gradient(circle, #FBE0A0 0%, transparent 70%);
-}
-
-h1 { color: var(--primary-dark); margin-bottom: 4px; }
+h1 { color: var(--text); margin-bottom: 4px; }
 h2 { color: var(--text); font-size: 18px; margin-top: 0; }
 
 input, select {
@@ -52,67 +35,66 @@ input, select {
     margin-bottom: 12px;
     border: 1px solid var(--border);
     border-radius: 14px;
-    background: var(--bg);
+    background: #FAFAFA;
     font-size: 14px;
 }
 
 button {
-    background: var(--primary);
-    color: white;
+    background: var(--lime);
+    color: var(--dark);
     border: none;
     padding: 10px 22px;
     border-radius: 999px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     font-size: 14px;
 }
-button:hover { background: var(--primary-dark); }
+button:hover { background: var(--lime-dark); }
 
-a { color: var(--primary-dark); }
+a { color: var(--dark); font-weight: 600; }
 
-/* ===== Simple centered card — login.html and register.html only ===== */
+/* ===== Simple centered card — login.html / register.html ===== */
 .container {
     max-width: 480px;
     margin: 40px auto;
     background: var(--card-bg);
     border-radius: 24px;
     padding: 32px;
-    box-shadow: 0 10px 30px rgba(43, 37, 21, 0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
 }
 
-/* ===== Dashboard shell with sidebar — profile.html, foodlog.html, progress.html ===== */
+/* ===== Dashboard shell with sidebar ===== */
 .app-shell {
     max-width: 1200px;
     margin: 40px auto;
     display: flex;
-    background: var(--card-bg);
+    background: var(--bg);
     border-radius: 28px;
     overflow: hidden;
-    box-shadow: 0 20px 50px rgba(43, 37, 21, 0.12);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
     min-height: 620px;
 }
 
 .sidebar {
-    width: 240px;
+    width: 220px;
     flex-shrink: 0;
-    background: var(--sidebar-bg);
-    padding: 28px 20px;
+    background: var(--dark);
+    padding: 28px 18px;
     display: flex;
     flex-direction: column;
 }
 
 .sidebar-avatar { text-align: center; margin-bottom: 28px; }
 .avatar-circle {
-    width: 60px; height: 60px;
+    width: 56px; height: 56px;
     border-radius: 50%;
-    background: var(--primary);
-    color: white;
+    background: var(--lime);
+    color: var(--dark);
     display: flex; align-items: center; justify-content: center;
-    font-size: 22px; font-weight: 700;
+    font-size: 20px; font-weight: 800;
     margin: 0 auto 10px;
-    border: 3px solid var(--sidebar-active);
 }
-.sidebar-hello { font-weight: 700; font-size: 14px; margin: 0; }
+.sidebar-hello { font-weight: 700; font-size: 14px; margin: 0; color: white; }
 
 .sidebar-nav { display: flex; flex-direction: column; gap: 4px; flex: 1; }
 .sidebar-link {
@@ -120,23 +102,23 @@ a { color: var(--primary-dark); }
     padding: 10px 14px;
     border-radius: 14px;
     text-decoration: none;
-    color: var(--text);
+    color: rgba(255,255,255,0.65);
     font-weight: 600;
     font-size: 14px;
 }
-.sidebar-link.active { background: var(--sidebar-active); color: #3B2F06; }
-.sidebar-link:hover:not(.active) { background: rgba(255,255,255,0.6); }
+.sidebar-link.active { background: var(--lime); color: var(--dark); }
+.sidebar-link:hover:not(.active) { background: rgba(255,255,255,0.08); color: white; }
 
 .sidebar-logout {
     margin-top: 16px;
     background: transparent;
-    border: 1px solid var(--border);
-    color: var(--muted);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.7);
     width: 100%;
     border-radius: 14px;
     padding: 10px;
 }
-.sidebar-logout:hover { background: white; color: var(--text); }
+.sidebar-logout:hover { background: rgba(255,255,255,0.08); color: white; }
 
 .app-main {
     flex: 1;
@@ -146,7 +128,7 @@ a { color: var(--primary-dark); }
     align-items: flex-start;
 }
 .main-content { flex: 1; min-width: 0; }
-.side-panel { flex: 0 0 280px; }
+.side-panel { flex: 0 0 300px; }
 
 @media (max-width: 900px) {
     .app-shell { flex-direction: column; border-radius: 20px; margin: 16px auto; }
@@ -158,7 +140,7 @@ a { color: var(--primary-dark); }
     .side-panel { flex-basis: auto; width: 100%; }
 }
 
-/* Profile info cards */
+/* Profile info cards with colored icon badges */
 .info-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -169,22 +151,38 @@ a { color: var(--primary-dark); }
     .info-grid { grid-template-columns: 1fr; }
 }
 .info-card {
-    background: var(--bg);
+    background: var(--card-bg);
     border-radius: 16px;
     padding: 16px 18px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
+.info-icon {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+.info-icon.icon-lime { background: rgba(207,255,87,0.3); }
+.info-icon.icon-blue { background: rgba(76,141,255,0.12); }
+.info-icon.icon-orange { background: rgba(255,159,67,0.12); }
+.info-icon.icon-red { background: rgba(255,107,107,0.12); }
 .info-card .label {
     font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
-    color: var(--muted); margin-bottom: 4px;
+    color: var(--muted); margin-bottom: 2px;
 }
-.info-card .value { font-size: 18px; font-weight: 700; color: var(--text); }
+.info-card .value { font-size: 16px; font-weight: 700; color: var(--text); }
 
-/* Generic content cards (search box, log list, etc.) */
+/* Generic content cards */
 .card {
-    background: var(--bg);
+    background: var(--card-bg);
     border-radius: 18px;
     padding: 16px;
     margin-top: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
 }
 
 /* Food search results & log entries */
@@ -192,37 +190,69 @@ a { color: var(--primary-dark); }
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: white;
+    background: #FAFAFA;
     border-radius: 14px;
     padding: 12px 16px;
     margin-bottom: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
 }
+.result-item .item-text, .log-item .item-text { display: flex; flex-direction: column; gap: 2px; }
+.result-item .macro-sub, .log-item .macro-sub { font-size: 11px; color: var(--muted); }
 .result-item button, .log-item button { padding: 6px 14px; font-size: 12px; }
-.log-item button { background: var(--accent); }
-.log-item button:hover { background: #D4901F; }
+.log-item button { background: var(--stat-red); color: white; }
+.log-item button:hover { background: #E85555; }
 
-/* Progress bars */
+/* Progress bars (7-day chart) */
 .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.bar-row[data-date] { cursor: pointer; }
+.bar-row-active .bar-label { color: var(--text); font-weight: 700; }
+.bar-row-active .bar-fill { background: var(--lime-dark); }
 .bar-label { width: 40px; font-size: 12px; color: var(--muted); }
 .bar-track { flex: 1; background: var(--border); border-radius: 999px; height: 14px; overflow: hidden; }
-.bar-fill { background: var(--primary); height: 100%; border-radius: 999px; }
+.bar-fill { background: var(--dark); height: 100%; border-radius: 999px; }
 .bar-value { width: 65px; text-align: right; font-size: 12px; color: var(--muted); }
 .meal-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px; }
 
-/* Circular calorie ring */
-.calorie-ring {
-    width: 140px; height: 140px;
+.date-picker-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0 16px;
+}
+.date-picker-row label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+}
+#dateSelect {
+    width: auto;
+    margin-bottom: 0;
+    padding: 8px 12px;
+}
+
+/* Dark hero card — "Body Overview" equivalent */
+.hero-card {
+    background: var(--dark);
+    border-radius: 22px;
+    padding: 24px;
+    color: white;
+    margin-bottom: 20px;
+}
+.hero-kcal { font-size: 34px; font-weight: 800; margin-bottom: 4px; }
+.hero-kcal small { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.55); }
+.macro-rings { display: flex; justify-content: space-between; margin-top: 20px; gap: 10px; }
+.macro-ring-wrap { text-align: center; flex: 1; }
+.macro-ring {
+    width: 76px; height: 76px;
     border-radius: 50%;
-    margin: 0 auto 20px;
+    margin: 0 auto 8px;
     display: flex; align-items: center; justify-content: center;
-    background: conic-gradient(var(--accent) calc(var(--pct, 0) * 1%), var(--border) 0);
+    background: conic-gradient(var(--ring-color) calc(var(--pct, 0) * 1%), rgba(255,255,255,0.12) 0);
 }
-.calorie-ring-inner {
-    width: 108px; height: 108px;
+.macro-ring-inner {
+    width: 58px; height: 58px;
     border-radius: 50%;
-    background: white;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: var(--dark);
+    display: flex; align-items: center; justify-content: center;
 }
-.calorie-ring-inner .kcal { font-size: 20px; font-weight: 700; color: var(--primary-dark); }
-.calorie-ring-inner .label { font-size: 11px; color: var(--muted); }
+.macro-ring-value { font-size: 13px; font-weight: 700; color: white; }
+.macro-ring-label { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 4px; }
