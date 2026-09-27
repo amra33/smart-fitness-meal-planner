@@ -29,7 +29,8 @@ function macroSubtext(item) {
     const p = item.protein ?? "?";
     const c = item.carbs ?? "?";
     const f = item.fat ?? "?";
-    return `P: ${p}g &middot; C: ${c}g &middot; F: ${f}g`;
+    const serving = item.serving ? `${item.serving} &middot; ` : "";
+    return `${serving}P: ${p}g &middot; C: ${c}g &middot; F: ${f}g`;
 }
 
 function renderSearchResults(results) {
@@ -58,7 +59,8 @@ function renderSearchResults(results) {
                 calories: food.calories,
                 protein: food.protein,
                 carbs: food.carbs,
-                fat: food.fat
+                fat: food.fat,
+                servingSize: food.serving
             });
         });
     });
@@ -73,6 +75,7 @@ document.getElementById("showManualBtn").addEventListener("click", function () {
 document.getElementById("manualSaveBtn").addEventListener("click", function () {
     const foodName = document.getElementById("manualFoodName").value.trim();
     const calories = Number(document.getElementById("manualCalories").value);
+    const servingSize = document.getElementById("manualServing").value.trim();
     const mealType = document.getElementById("manualMealType").value;
 
     if (!foodName || !calories) {
@@ -80,7 +83,7 @@ document.getElementById("manualSaveBtn").addEventListener("click", function () {
         return;
     }
 
-    saveFoodLog({ foodName, calories, mealType });
+    saveFoodLog({ foodName, calories, servingSize, mealType });
 });
 
 // Shared by both search results and manual entry
@@ -120,8 +123,7 @@ async function loadFoodLogs() {
         const data = await response.json();
         const logs = data.logs || [];
 
-        // "Today's Log" should mean today — filter before rendering,
-        // same approach progress.js already uses for its own totals.
+        // "Today's Log" should mean today — filter before rendering.
         const today = new Date().toISOString().split("T")[0];
         const todaysLogs = logs.filter(log => dateKey(log.date) === today);
 
@@ -147,7 +149,9 @@ function renderLogList(logs) {
             <div class="log-item">
                 <span class="item-text">
                     <span>${log.foodName} — ${log.calories} kcal</span>
-                    <span class="macro-sub">P: ${log.protein ?? 0}g &middot; C: ${log.carbs ?? 0}g &middot; F: ${log.fat ?? 0}g</span>
+                    <span class="macro-sub">
+                        ${log.servingSize ? `${log.servingSize} &middot; ` : ""}P: ${log.protein ?? 0}g &middot; C: ${log.carbs ?? 0}g &middot; F: ${log.fat ?? 0}g
+                    </span>
                 </span>
                 <button class="deleteBtn" data-id="${log._id}">Delete</button>
             </div>
