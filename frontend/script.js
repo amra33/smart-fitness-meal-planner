@@ -30,6 +30,7 @@ if (registerForm) {
 
             if (response.ok) {
                 localStorage.setItem("token", data.token);
+                localStorage.setItem("userName", data.user.name);
 
                 document.getElementById("registerMessage").textContent =
                     "Registration successful!";
@@ -77,6 +78,8 @@ if (profileMessage) {
 
                 // Sidebar personalization (new) — guarded so this never
                 // breaks on pages that don't have these elements
+                localStorage.setItem("userName", data.user.name);
+
                 const sidebarNameEl = document.getElementById("sidebarName");
                 if (sidebarNameEl) sidebarNameEl.textContent = data.user.name;
 
@@ -124,6 +127,7 @@ if (loginForm) {
 
             if (response.ok) {
                 localStorage.setItem("token", data.token);
+                localStorage.setItem("userName", data.user.name);
 
                 document.getElementById("loginMessage").textContent =
                     "Login successful!";
@@ -146,5 +150,6 @@ if (loginForm) {
 }
 function logout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("userName");
     window.location.href = "login.html";
 }
