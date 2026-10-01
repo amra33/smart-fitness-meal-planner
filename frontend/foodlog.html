@@ -28,24 +28,14 @@
             <div class="card">
                 <h2>Search a food</h2>
                 <input type="text" id="searchInput" placeholder="e.g. banana, rice, chicken">
-                <button id="searchBtn">Search</button>
-                <div id="searchResults"></div>
-            </div>
-
-            <button id="showManualBtn" style="width:100%; margin-top:12px;">Can't find your food? Enter manually</button>
-
-            <div class="card" id="manualEntry" style="display: none;">
-                <h2>Enter manually</h2>
-                <input type="text" id="manualFoodName" placeholder="Food name (e.g. Chicken Biryani)">
-                <input type="number" id="manualCalories" placeholder="Calories">
-                <input type="text" id="manualServing" placeholder="Serving size (e.g. 1 cup, 200g)">
-                <select id="manualMealType">
+                <select id="mealTypeSelect">
                     <option value="breakfast">Breakfast</option>
                     <option value="lunch">Lunch</option>
                     <option value="dinner">Dinner</option>
                     <option value="snack">Snack</option>
                 </select>
-                <button id="manualSaveBtn">Save</button>
+                <button id="searchBtn">Search</button>
+                <div id="searchResults"></div>
             </div>
         </div>
 

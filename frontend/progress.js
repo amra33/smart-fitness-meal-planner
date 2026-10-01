@@ -10,6 +10,24 @@ const todayStr = new Date().toISOString().split("T")[0];
 
 loadProgress();
 
+// Sidebar personalization — progress.html doesn't load script.js, so this
+// page needs its own copy of this fetch, reusing the token above.
+const sidebarNameEl = document.getElementById("sidebarName");
+const avatarEl = document.getElementById("avatarInitial");
+if (sidebarNameEl || avatarEl) {
+    fetch(`${API_BASE}/api/auth/profile`, {
+        headers: { "Authorization": "Bearer " + token }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.user && data.user.name) {
+            if (sidebarNameEl) sidebarNameEl.textContent = data.user.name;
+            if (avatarEl) avatarEl.textContent = data.user.name.charAt(0).toUpperCase();
+        }
+    })
+    .catch(error => console.error(error));
+}
+
 async function loadProgress() {
     try {
         const response = await fetch(`${API_BASE}/api/foodlogs`, {

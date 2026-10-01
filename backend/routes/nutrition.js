@@ -77,15 +77,24 @@ router.get("/search", authMiddleware, async (req, res) => {
                 if (!carbs) carbs = label.carbohydrates?.value ?? carbs;
                 if (!fat) fat = label.fat?.value ?? fat;
 
+                // USDA's serving-size field and its nutrient values don't
+                // always describe the same basis — sometimes the numbers
+                // are really "per 100g" even though servingSize claims
+                // something smaller. Catch that: if the macros alone
+                // outweigh the claimed serving, the serving label is wrong.
+                let serving = food.servingSize && food.servingSizeUnit
+                    ? `${Math.round(food.servingSize)}${food.servingSizeUnit}`
+                    : "100g (reference amount)";
+
+                const macroGrams = (protein || 0) + (carbs || 0) + (fat || 0);
+                if (food.servingSizeUnit === "g" && macroGrams > food.servingSize) {
+                    serving = "100g (reference amount)";
+                }
+
                 return {
                     fdcId: food.fdcId,
                     foodName: food.description,
-                    // USDA's own serving-size numbers sometimes carry long
-                    // floating-point rounding artifacts (e.g. 28.350000381469727)
-                    // — round to a clean whole number before showing it.
-                    serving: food.servingSize && food.servingSizeUnit
-                        ? `${Math.round(food.servingSize)}${food.servingSizeUnit}`
-                        : "100g (reference amount)",
+                    serving,
                     calories,
                     protein,
                     carbs,

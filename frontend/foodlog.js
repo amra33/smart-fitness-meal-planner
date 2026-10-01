@@ -7,6 +7,37 @@ if (!token) {
 
 loadFoodLogs();
 
+// Default the meal-type dropdown to whatever's most likely right now,
+// based on time of day — so people don't have to remember to change it
+// on every single log, but can still override it when it's wrong.
+function guessMealType() {
+    const hour = new Date().getHours();
+    if (hour < 11) return "breakfast";
+    if (hour < 16) return "lunch";
+    if (hour < 19) return "snack";
+    if (hour < 22) return "dinner";
+    return "snack";
+}
+document.getElementById("mealTypeSelect").value = guessMealType();
+
+// Sidebar personalization — foodlog.html doesn't load script.js, so this
+// page needs its own copy of this fetch, reusing the token above.
+const sidebarNameEl = document.getElementById("sidebarName");
+const avatarEl = document.getElementById("avatarInitial");
+if (sidebarNameEl || avatarEl) {
+    fetch(`${API_BASE}/api/auth/profile`, {
+        headers: { "Authorization": "Bearer " + token }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.user && data.user.name) {
+            if (sidebarNameEl) sidebarNameEl.textContent = data.user.name;
+            if (avatarEl) avatarEl.textContent = data.user.name.charAt(0).toUpperCase();
+        }
+    })
+    .catch(error => console.error(error));
+}
+
 // SEARCH
 document.getElementById("searchBtn").addEventListener("click", async function () {
     const query = document.getElementById("searchInput").value.trim();
@@ -37,7 +68,7 @@ function renderSearchResults(results) {
     const container = document.getElementById("searchResults");
 
     if (results.length === 0) {
-        container.innerHTML = "<p>No matches found. Try entering it manually below.</p>";
+        container.innerHTML = "<p>No matches found. Try a different search term (e.g. a simpler name or a different spelling).</p>";
         return;
     }
 
@@ -54,39 +85,21 @@ function renderSearchResults(results) {
     container.querySelectorAll(".logBtn").forEach(button => {
         button.addEventListener("click", function () {
             const food = results[this.dataset.index];
+            const mealType = document.getElementById("mealTypeSelect").value;
             saveFoodLog({
                 foodName: food.foodName,
                 calories: food.calories,
                 protein: food.protein,
                 carbs: food.carbs,
                 fat: food.fat,
-                servingSize: food.serving
+                servingSize: food.serving,
+                mealType
             });
         });
     });
 }
 
-// MANUAL ENTRY
-document.getElementById("showManualBtn").addEventListener("click", function () {
-    const section = document.getElementById("manualEntry");
-    section.style.display = section.style.display === "none" ? "block" : "none";
-});
-
-document.getElementById("manualSaveBtn").addEventListener("click", function () {
-    const foodName = document.getElementById("manualFoodName").value.trim();
-    const calories = Number(document.getElementById("manualCalories").value);
-    const servingSize = document.getElementById("manualServing").value.trim();
-    const mealType = document.getElementById("manualMealType").value;
-
-    if (!foodName || !calories) {
-        alert("Please enter a food name and calorie amount.");
-        return;
-    }
-
-    saveFoodLog({ foodName, calories, servingSize, mealType });
-});
-
-// Shared by both search results and manual entry
+// Used by the "Log this" button on each search result
 async function saveFoodLog(logData) {
     try {
         const response = await fetch(`${API_BASE}/api/foodlogs`, {
