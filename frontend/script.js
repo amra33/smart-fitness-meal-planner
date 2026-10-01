@@ -1,3 +1,4 @@
+// REGISTER
 const registerForm = document.getElementById("registerForm");
 
 if (registerForm) {
@@ -29,14 +30,15 @@ if (registerForm) {
             const data = await response.json();
 
             if (response.ok) {
-                localStorage.setItem("token", data.token);
-                localStorage.setItem("userName", data.user.name);
+
+                // Save email temporarily for OTP verification
+                localStorage.setItem("verificationEmail", data.email);
 
                 document.getElementById("registerMessage").textContent =
-                    "Registration successful!";
+                    "OTP sent to your email!";
 
                 setTimeout(() => {
-                    window.location.href = "profile.html";
+                    window.location.href = "verify-otp.html";
                 }, 1000);
 
             } else {
@@ -45,12 +47,78 @@ if (registerForm) {
             }
 
         } catch (error) {
+            console.error(error);
+
             document.getElementById("registerMessage").textContent =
                 "Cannot connect to server.";
-            console.error(error);
         }
     });
 }
+
+
+// VERIFY OTP
+const otpForm = document.getElementById("otpForm");
+
+if (otpForm) {
+
+    // Automatically put the registered email in the email box
+    const savedEmail = localStorage.getItem("verificationEmail");
+
+    if (savedEmail) {
+        document.getElementById("otpEmail").value = savedEmail;
+    }
+
+    otpForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const email = document.getElementById("otpEmail").value;
+        const otp = document.getElementById("otp").value;
+
+        try {
+            const response = await fetch(
+                "http://localhost:5000/api/auth/verify-otp",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        otp: otp
+                    })
+                }
+            );
+
+            const data = await response.json();
+
+            if (response.ok) {
+
+                document.getElementById("otpMessage").textContent =
+                    "Email verified successfully!";
+
+                localStorage.removeItem("verificationEmail");
+
+                setTimeout(() => {
+                    window.location.href = "login.html";
+                }, 1500);
+
+            } else {
+
+                document.getElementById("otpMessage").textContent =
+                    data.message;
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            document.getElementById("otpMessage").textContent =
+                "Cannot connect to server.";
+        }
+    });
+}
+
+
 // PROFILE
 const profileMessage = document.getElementById("message");
 
@@ -69,23 +137,40 @@ if (profileMessage) {
         .then(response => response.json())
         .then(data => {
             if (data.user) {
-                document.getElementById("name").textContent = data.user.name;
-                document.getElementById("email").textContent = data.user.email;
-                document.getElementById("age").textContent = data.user.age;
-                document.getElementById("height").textContent = data.user.height;
-                document.getElementById("weight").textContent = data.user.weight;
-                document.getElementById("activityLevel").textContent = data.user.activityLevel;
 
-                // Sidebar personalization (new) — guarded so this never
-                // breaks on pages that don't have these elements
                 localStorage.setItem("userName", data.user.name);
 
-                const sidebarNameEl = document.getElementById("sidebarName");
-                if (sidebarNameEl) sidebarNameEl.textContent = data.user.name;
+                document.getElementById("name").textContent =
+                    data.user.name;
 
-                const avatarEl = document.getElementById("avatarInitial");
+                document.getElementById("email").textContent =
+                    data.user.email;
+
+                document.getElementById("age").textContent =
+                    data.user.age;
+
+                document.getElementById("height").textContent =
+                    data.user.height;
+
+                document.getElementById("weight").textContent =
+                    data.user.weight;
+
+                document.getElementById("activityLevel").textContent =
+                    data.user.activityLevel;
+
+                const sidebarNameEl =
+                    document.getElementById("sidebarName");
+
+                if (sidebarNameEl) {
+                    sidebarNameEl.textContent = data.user.name;
+                }
+
+                const avatarEl =
+                    document.getElementById("avatarInitial");
+
                 if (avatarEl && data.user.name) {
-                    avatarEl.textContent = data.user.name.charAt(0).toUpperCase();
+                    avatarEl.textContent =
+                        data.user.name.charAt(0).toUpperCase();
                 }
 
             } else {
@@ -94,10 +179,13 @@ if (profileMessage) {
         })
         .catch(error => {
             console.error(error);
-            profileMessage.textContent = "Cannot connect to server.";
+            profileMessage.textContent =
+                "Cannot connect to server.";
         });
     }
 }
+
+
 // LOGIN
 const loginForm = document.getElementById("loginForm");
 
@@ -105,8 +193,11 @@ if (loginForm) {
     loginForm.addEventListener("submit", async function (e) {
         e.preventDefault();
 
-        const email = document.getElementById("loginEmail").value;
-        const password = document.getElementById("loginPassword").value;
+        const email =
+            document.getElementById("loginEmail").value;
+
+        const password =
+            document.getElementById("loginPassword").value;
 
         try {
             const response = await fetch(
@@ -126,6 +217,7 @@ if (loginForm) {
             const data = await response.json();
 
             if (response.ok) {
+
                 localStorage.setItem("token", data.token);
                 localStorage.setItem("userName", data.user.name);
 
@@ -135,12 +227,15 @@ if (loginForm) {
                 setTimeout(() => {
                     window.location.href = "profile.html";
                 }, 1000);
+
             } else {
+
                 document.getElementById("loginMessage").textContent =
                     data.message;
             }
 
         } catch (error) {
+
             console.error(error);
 
             document.getElementById("loginMessage").textContent =
@@ -148,6 +243,9 @@ if (loginForm) {
         }
     });
 }
+
+
+// LOGOUT
 function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("userName");

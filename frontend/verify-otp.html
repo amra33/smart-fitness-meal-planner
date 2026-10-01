@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Fitness - Verify Email</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Smart Fitness</h1>
+    <h2>Verify Your Email</h2>
+
+    <p>
+        Enter the 6-digit OTP sent to your email.
+    </p>
+
+    <form id="otpForm">
+
+        <input
+            type="email"
+            id="otpEmail"
+            placeholder="Email"
+            required
+        >
+
+        <input
+            type="text"
+            id="otp"
+            placeholder="Enter 6-digit OTP"
+            maxlength="6"
+            required
+        >
+
+        <button type="submit">Verify Email</button>
+
+    </form>
+
+    <p id="otpMessage"></p>
+
+    <p>
+        <a href="register.html">Back to Register</a>
+    </p>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
