@@ -286,3 +286,62 @@ a { color: var(--dark); font-weight: 600; }
     display: block;
     margin-top: 4px;
 }
+/* Recipe recommendation cards */
+
+#recipeList .recipe-card {
+    display: flex;
+    gap: 25px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    text-align: left;
+    align-items: flex-start;
+}
+
+#recipeList .recipe-image {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+#recipeList .recipe-content {
+    flex: 1;
+    text-align: left;
+}
+
+#recipeList .recipe-content h3 {
+    margin-top: 0;
+    margin-bottom: 6px;
+}
+
+#recipeList .recipe-info {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+#recipeList .recipe-content h4 {
+    margin-top: 18px;
+    margin-bottom: 8px;
+}
+
+#recipeList .recipe-ingredients {
+    padding-left: 20px;
+    margin-top: 5px;
+}
+
+#recipeList .recipe-ingredients li {
+    margin-bottom: 5px;
+}
+
+#recipeList .recipe-instructions {
+    padding-left: 20px;
+    margin-top: 5px;
+}
+
+#recipeList .recipe-instructions li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
