@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Fitness - Pantry</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-avatar">
+            <div class="avatar-circle" id="avatarInitial">S</div>
+            <p class="sidebar-hello">
+                Hello, <span id="sidebarName">there</span>
+            </p>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="profile.html" class="sidebar-link">
+                👤 Profile
+            </a>
+
+            <a href="foodlog.html" class="sidebar-link">
+                🍽️ Log Food
+            </a>
+
+            <a href="pantry.html" class="sidebar-link active">
+                🥕 Pantry
+            </a>
+
+            <a href="progress.html" class="sidebar-link">
+                📊 Progress
+            </a>
+
+        </nav>
+
+        <button class="sidebar-logout" onclick="logout()">
+            🚪 Logout
+        </button>
+
+    </aside>
+
+
+    <main class="app-main">
+
+        <div class="main-content">
+
+            <h1>My Pantry</h1>
+
+            <p id="pantryMessage"></p>
+
+
+            <!-- ADD INGREDIENT -->
+
+            <div class="card">
+
+                <h2>Add Ingredient</h2>
+
+                <form id="pantryForm">
+
+                    <input
+                        type="text"
+                        id="ingredient"
+                        placeholder="Ingredient name"
+                        required
+                    >
+
+                    <input
+                        type="number"
+                        id="quantity"
+                        placeholder="Quantity"
+                        min="0"
+                        step="0.1"
+                        required
+                    >
+
+                    <select id="unit" required>
+
+                        <option value="">
+                            Select unit
+                        </option>
+
+                        <option value="kg">
+                            kg
+                        </option>
+
+                        <option value="g">
+                            g
+                        </option>
+
+                        <option value="litre">
+                            litre
+                        </option>
+
+                        <option value="ml">
+                            ml
+                        </option>
+
+                        <option value="pieces">
+                            pieces
+                        </option>
+
+                    </select>
+
+                    <button type="submit">
+                        + Add Ingredient
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- PANTRY LIST -->
+
+            <div class="card">
+
+                <h2>Available Ingredients</h2>
+
+                <div id="pantryList">
+
+                    <p>
+                        Loading pantry...
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- RECIPE SECTION -->
+
+            <div class="card">
+
+                <h2>🍳 Recipe Recommendations</h2>
+
+                <p>
+                    Find recipes based on ingredients available in your pantry.
+                </p>
+
+                <button id="recipeButton">
+                    Find Recipes
+                </button>
+
+                <div id="recipeList"></div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script src="pantry.js"></script>
+
+</body>
+</html>
