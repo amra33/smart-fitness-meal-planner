@@ -256,3 +256,33 @@ a { color: var(--dark); font-weight: 600; }
 }
 .macro-ring-value { font-size: 13px; font-weight: 700; color: white; }
 .macro-ring-label { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+/* Recipe recommendation cards */
+#recipeList .result-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-align: left;
+}
+
+#recipeList .result-item img {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+#recipeList .result-item .item-text {
+    flex: 1;
+    text-align: left;
+}
+
+#recipeList .result-item .item-text strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#recipeList .result-item .macro-sub {
+    display: block;
+    margin-top: 4px;
+}
